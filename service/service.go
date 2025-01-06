@@ -19,11 +19,11 @@ type Service struct {
 func NewService(repo repository.Repository, appConfig config.Config, log *zap.Logger) Service {
 	return Service{
 		Auth:          NewAuthService(repo.User, log),
-		Chat:          NewChatService(repo.User, log),
+		Chat:          NewChatService(repo.Chat, log),
 		Email:         NewEmailService(appConfig.Email, log),
 		Otp:           NewOtpService(log),
 		PasswordReset: NewPasswordResetService(repo.PasswordReset, log),
-		Room:          NewRoomService(repo.User, log),
+		Room:          NewRoomService(repo.Room, log),
 		User:          NewUserService(repo, log),
 	}
 }

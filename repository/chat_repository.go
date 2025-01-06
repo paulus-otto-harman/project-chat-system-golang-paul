@@ -4,6 +4,7 @@ import (
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 	"homework/database"
+	"homework/domain"
 )
 
 type ChatRepository struct {
@@ -14,4 +15,8 @@ type ChatRepository struct {
 
 func NewChatRepository(db *gorm.DB, cacher database.Cacher, log *zap.Logger) *ChatRepository {
 	return &ChatRepository{db: db, cacher: cacher, log: log}
+}
+
+func (r ChatRepository) Save(message domain.Message) {
+	r.db.Create(&message)
 }

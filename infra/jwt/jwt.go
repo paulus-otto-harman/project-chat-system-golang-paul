@@ -12,12 +12,6 @@ import (
 	"go.uber.org/zap"
 )
 
-// constant
-const (
-	REQUEST = "invalid request"
-	TOKEN   = "invalid token"
-)
-
 type JWT struct {
 	PrivateKey string
 	PublicKey  string
