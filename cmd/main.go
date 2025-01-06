@@ -12,9 +12,9 @@ import (
 // @version 1.0
 // @description
 // @termsOfService http://example.com/terms/
-// @contact.name Team
+// @contact.name Paulus Otto Harman
 // @contact.url https://academy.lumoshive.com/contact-us
-// @contact.email lumoshive.academy@gmail.com
+// @contact.email paulus.otto.harman@gmail.com
 // @license.name Lumoshive Academy
 // @license.url https://academy.lumoshive.com
 // @host localhost:8080

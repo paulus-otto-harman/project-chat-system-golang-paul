@@ -4,6 +4,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"homework/infra"
 	"log"
 	"net/http"
@@ -13,23 +15,20 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	swaggerFiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func NewRoutes(ctx infra.ServiceContext) {
 	r := gin.Default()
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	r.Use(ctx.Middleware.Logger())
 	r.POST("/login", ctx.Ctl.AuthHandler.Login)
 	r.POST("/otp", ctx.Ctl.PasswordResetHandler.Create)
 	r.PUT("/otp/:id", ctx.Ctl.PasswordResetHandler.Update)
 	r.PUT("/users/:id", ctx.Ctl.UserHandler.Update)
-	r.POST("/users", ctx.Ctl.UserHandler.Registration)
+	r.POST("/register", ctx.Ctl.UserHandler.Registration)
 
 	r.Use(ctx.Middleware.Jwt.AuthJWT())
-
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	gracefulShutdown(ctx, r.Handler())
 }

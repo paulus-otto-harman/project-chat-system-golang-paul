@@ -62,8 +62,5 @@ func makePostgresString(cfg config.Config) string {
 }
 
 func createCustomDBTypes(db *gorm.DB) error {
-	return db.Exec(`
-		DO $$ BEGIN CREATE TYPE user_role AS ENUM('super admin', 'admin', 'staff');
-		EXCEPTION WHEN duplicate_object THEN null; END $$;
-	`).Error
+	return nil
 }

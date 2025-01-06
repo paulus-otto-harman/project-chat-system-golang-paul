@@ -8,43 +8,34 @@ import (
 func User() []domain.User {
 	return []domain.User{
 		{
-			Email:    "super@mail.com",
-			Password: helper.HashPassword("super"),
-			Role:     domain.SuperAdmin,
-			Profile: domain.Profile{
-				FullName: "Super Admin",
-				Phone:    "00",
-				Salary:   150,
-			},
+			Name:     "User Satu",
+			Email:    "user1@mail.com",
+			Password: helper.HashPassword("user1"),
 		},
 		{
-			Email:    "admin@mail.com",
-			Password: helper.HashPassword("admin"),
-			Role:     domain.Admin,
-			Profile: domain.Profile{
-				FullName: "Admin Satu",
-				Phone:    "01",
-				Salary:   100,
-			},
-			Permissions: []domain.Permission{
-				{ID: 1, Name: "Dashboard"},
-				{ID: 2, Name: "Reports"},
-				{ID: 6, Name: "Settings"},
-			},
+			Name:     "User Dua",
+			Email:    "user2@mail.com",
+			Password: helper.HashPassword("user2"),
 		},
 		{
-			Email:    "staff@mail.com",
-			Password: helper.HashPassword("staff"),
-			Role:     domain.Staff,
-			Profile: domain.Profile{
-				FullName: "Staff Satu",
-				Phone:    "02",
-				Salary:   50,
-			},
-			Permissions: []domain.Permission{
-				{ID: 4, Name: "Orders"},
-				{ID: 5, Name: "Customers"},
-			},
+			Name:     "User Tiga",
+			Email:    "user3@mail.com",
+			Password: helper.HashPassword("user3"),
+		},
+		{
+			Name:     "User Empat",
+			Email:    "user4@mail.com",
+			Password: helper.HashPassword("user4"),
+		},
+		{
+			Name:     "User Lima",
+			Email:    "user5@mail.com",
+			Password: helper.HashPassword("user5"),
+		},
+		{
+			Name:     "User Enam",
+			Email:    "user6@mail.com",
+			Password: helper.HashPassword("user6"),
 		},
 	}
 }

@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"homework/database"
@@ -57,10 +56,6 @@ func (ctrl *AuthController) Login(c *gin.Context) {
 	}
 
 	ctrl.logger.Info("found", zap.Any("user", user))
-	ctrl.cacher.HSet(fmt.Sprintf("user:%d", user.ID), "role", string(user.Role))
-	for _, permission := range user.Permissions {
-		ctrl.cacher.SAdd(fmt.Sprintf("user:%d:permission", user.ID), permission.Name)
-	}
 
 	// Buat token JWT
 	token, err := ctrl.jwt.CreateToken(user.Email, ip, strconv.FormatUint(uint64(user.ID), 10))

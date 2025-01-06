@@ -10,21 +10,21 @@ func PasswordResetTokenSeed() []domain.PasswordResetToken {
 	return []domain.PasswordResetToken{
 		{
 			UserID:    2,
-			Email:     "staff@mail.com",
+			Email:     "user2@mail.com",
 			Otp:       "111111",
 			CreatedAt: time.Now(),
 			ExpiredAt: time.Now().Add(time.Hour),
 		},
 		{
 			UserID:    2,
-			Email:     "staff@mail.com",
+			Email:     "user2@mail.com",
 			Otp:       "222222",
 			CreatedAt: time.Now(),
 			ExpiredAt: time.Now().Add(time.Hour),
 		},
 		{
 			UserID:      2,
-			Email:       "staff@mail.com",
+			Email:       "user2@mail.com",
 			Otp:         "333333",
 			CreatedAt:   time.Now(),
 			ExpiredAt:   time.Now().Add(time.Hour),
@@ -32,7 +32,7 @@ func PasswordResetTokenSeed() []domain.PasswordResetToken {
 		},
 		{
 			UserID:          2,
-			Email:           "staff@mail.com",
+			Email:           "user2@mail.com",
 			Otp:             "444444",
 			CreatedAt:       time.Now(),
 			ExpiredAt:       time.Now().Add(time.Hour),
