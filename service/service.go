@@ -8,18 +8,22 @@ import (
 
 type Service struct {
 	Auth          AuthService
+	Chat          ChatService
 	Email         EmailService
 	Otp           OtpService
 	PasswordReset PasswordResetService
+	Room          RoomService
 	User          UserService
 }
 
 func NewService(repo repository.Repository, appConfig config.Config, log *zap.Logger) Service {
 	return Service{
 		Auth:          NewAuthService(repo.User, log),
+		Chat:          NewChatService(repo.User, log),
 		Email:         NewEmailService(appConfig.Email, log),
 		Otp:           NewOtpService(log),
 		PasswordReset: NewPasswordResetService(repo.PasswordReset, log),
+		Room:          NewRoomService(repo.User, log),
 		User:          NewUserService(repo, log),
 	}
 }

@@ -29,10 +29,10 @@ func NewRoutes(ctx infra.ServiceContext) {
 	r.POST("/register", ctx.Ctl.UserHandler.Registration)
 
 	r.Use(ctx.Middleware.Jwt.AuthJWT())
-	r.POST("/rooms", nil)
-	r.GET("/rooms/:id/chats", nil)
-	r.GET("/rooms/:id/ws", nil)
-	r.DELETE("/chats/:id", nil)
+	r.POST("/rooms", ctx.Ctl.RoomHandler.Create)
+	r.GET("/rooms/:id/chats", ctx.Ctl.ChatHandler.All)
+	r.GET("/rooms/:id/ws", ctx.Ctl.ChatHandler.Websocket)
+	r.DELETE("/chats/:id", ctx.Ctl.ChatHandler.Delete)
 
 	gracefulShutdown(ctx, r.Handler())
 }

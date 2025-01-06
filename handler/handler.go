@@ -12,14 +12,18 @@ import (
 
 type Handler struct {
 	AuthHandler          AuthController
+	ChatHandler          ChatController
 	PasswordResetHandler PasswordResetController
+	RoomHandler          RoomController
 	UserHandler          UserController
 }
 
 func NewHandler(service service.Service, logger *zap.Logger, rdb database.Cacher, jwt jwt.JWT) *Handler {
 	return &Handler{
 		AuthHandler:          *NewAuthController(service.Auth, logger, rdb, jwt),
+		ChatHandler:          *NewChatController(service.Chat, logger, rdb),
 		PasswordResetHandler: *NewPasswordResetController(service, logger),
+		RoomHandler:          *NewRoomController(service.Room, logger),
 		UserHandler:          *NewUserController(service.User, logger),
 	}
 }
