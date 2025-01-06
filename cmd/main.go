@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	_ "homework/docs"
 	"homework/infra"
 	"homework/routes"
 	"log"

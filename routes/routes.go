@@ -24,36 +24,12 @@ func NewRoutes(ctx infra.ServiceContext) {
 	r.POST("/login", ctx.Ctl.AuthHandler.Login)
 	r.POST("/otp", ctx.Ctl.PasswordResetHandler.Create)
 	r.PUT("/otp/:id", ctx.Ctl.PasswordResetHandler.Update)
-	r.PUT("/user/:id", ctx.Ctl.UserHandler.Update)
+	r.PUT("/users/:id", ctx.Ctl.UserHandler.Update)
+	r.POST("/users", ctx.Ctl.UserHandler.Registration)
 
 	r.Use(ctx.Middleware.Jwt.AuthJWT())
-	r.GET("/staffs", ctx.Middleware.CanAccess("Dashboard"), ctx.Middleware.CanAccess("Categories"), func(c *gin.Context) {
-		c.JSON(200, gin.H{"hello": "world"})
-	})
-
-	reservationsRoutes := r.Group("/reservations")
-	{
-		reservationsRoutes.GET("/", ctx.Ctl.ReservationHandler.All)
-		reservationsRoutes.POST("/", ctx.Ctl.ReservationHandler.Add)
-		reservationsRoutes.GET("/:id", ctx.Ctl.ReservationHandler.GetByID)
-		reservationsRoutes.PUT("/:id", ctx.Ctl.ReservationHandler.Update)
-	}
-
-	categoriesRoutes := r.Group("/categories")
-	{
-		categoriesRoutes.GET("/", ctx.Ctl.CategoryHandler.All)
-		categoriesRoutes.POST("/create", ctx.Ctl.CategoryHandler.Create)
-		categoriesRoutes.PUT("/:id", ctx.Ctl.CategoryHandler.Update)
-	}
-
-	productsRoutes := r.Group("/products")
-	{
-		productsRoutes.GET("/", ctx.Ctl.CategoryHandler.AllProducts)
-	}
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-
-	notificationRoutes(ctx, r)
 
 	gracefulShutdown(ctx, r.Handler())
 }
