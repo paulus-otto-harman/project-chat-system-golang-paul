@@ -44,8 +44,8 @@ func (ctrl *UserController) All(c *gin.Context) {
 }
 
 // Registration endpoint
-// @Summary Staff Registration
-// @Description register staff
+// @Summary User Registration
+// @Description register user
 // @Tags Auth
 // @Accept  json
 // @Produce  json
@@ -65,7 +65,7 @@ func (ctrl *UserController) Registration(c *gin.Context) {
 		return
 	}
 
-	GoodResponseWithData(c, "user registered", http.StatusCreated, user)
+	GoodResponseWithData(c, "user registered", http.StatusCreated, gin.H{"name": user.Name, "email": user.Email})
 }
 
 func (ctrl *UserController) Update(c *gin.Context) {

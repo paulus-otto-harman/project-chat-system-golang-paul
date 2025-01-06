@@ -35,6 +35,7 @@ func (s *userService) Get(user domain.User) (*domain.User, error) {
 }
 
 func (s *userService) Register(user *domain.User) error {
+	user.Password = helper.HashPassword(user.Password)
 	return s.repo.User.Create(user)
 }
 

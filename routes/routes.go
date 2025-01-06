@@ -29,6 +29,10 @@ func NewRoutes(ctx infra.ServiceContext) {
 	r.POST("/register", ctx.Ctl.UserHandler.Registration)
 
 	r.Use(ctx.Middleware.Jwt.AuthJWT())
+	r.POST("/rooms", nil)
+	r.GET("/rooms/:id/chats", nil)
+	r.GET("/rooms/:id/ws", nil)
+	r.DELETE("/chats/:id", nil)
 
 	gracefulShutdown(ctx, r.Handler())
 }

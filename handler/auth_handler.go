@@ -65,12 +65,6 @@ func (ctrl *AuthController) Login(c *gin.Context) {
 		return
 	}
 
-	// Buat response data
-	data := gin.H{
-		"user":  user.Email,
-		"token": token,
-	}
-
 	ctrl.logger.Info("User logged in successfully", zap.String("email", user.Email))
-	GoodResponseWithData(c, "user authenticated", http.StatusOK, data)
+	GoodResponseWithData(c, "user authenticated", http.StatusOK, gin.H{"token": token})
 }
