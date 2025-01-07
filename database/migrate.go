@@ -29,7 +29,6 @@ func autoMigrates(db *gorm.DB) error {
 		&domain.User{},
 		&domain.PasswordResetToken{},
 		&domain.Room{},
-		&domain.RoomUser{},
 		&domain.Message{},
 	)
 }

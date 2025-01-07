@@ -25,5 +25,11 @@ func (ctrl *RoomController) Create(c *gin.Context) {
 		BadResponse(c, "invalid input", http.StatusBadRequest)
 		return
 	}
-	GoodResponseWithData(c, "room created successfully", http.StatusOK, gin.H{})
+
+	if err := ctrl.service.SaveRoom(&room); err != nil {
+		log.Println(err.Error())
+		BadResponse(c, "failed to create chat room", http.StatusInternalServerError)
+		return
+	}
+	GoodResponseWithData(c, "room created successfully", http.StatusOK, room)
 }
