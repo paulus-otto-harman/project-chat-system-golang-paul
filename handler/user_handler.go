@@ -63,11 +63,16 @@ func (ctrl *UserController) Registration(c *gin.Context) {
 // @Summary Reset Password
 // @Description reset user password. user can only reset their password after successfully validated the OTP.
 // @Description use 1052c225-9a44-4f61-a340-040ef44e8022 to reset the password using data from the seeder
+// @Description UUID is needed to prevent users from using the same UUID continuously
 // @Tags Auth
 // @Accept  json
 // @Produce  json
-// @Success 200 {object} handler.Response "OTP sent"
-// @Failure 500 {object} handler.Response "failed to send OTP"
+// @Param id path int true "UUID to validate OTP"
+// @Param NewPassword body NewPassword true " "
+// @Success 200 {object} handler.Response "password changed"
+// @Failure 400 {object} handler.Response "invalid parameter"
+// @Failure 422 {object} handler.Response "invalid password"
+// @Failure 500 {object} handler.Response "failed to save the new password"
 // @Router  /user/:id [put]
 func (ctrl *UserController) Update(c *gin.Context) {
 	id, err := uuid.Parse(c.Param("id"))
