@@ -24,7 +24,7 @@ func User() []domain.User {
 		},
 		{
 			Name:     "User Empat",
-			Email:    "user4@mail.com",
+			Email:    "user4@mailinator.com",
 			Password: helper.HashPassword("user4"),
 		},
 		{

@@ -18,15 +18,6 @@ func NewUserController(service service.UserService, logger *zap.Logger) *UserCon
 	return &UserController{service: service, logger: logger}
 }
 
-// Check Email endpoint
-// @Summary Check Email
-// @Description email must be valid when users want to reset their passwords
-// @Tags Auth
-// @Accept  json
-// @Produce  json
-// @Success 200 {object} handler.Response "email is valid"
-// @Failure 404 {object} handler.Response "user not found"
-// @Router  /users [get]
 func (ctrl *UserController) All(c *gin.Context) {
 	searchParam := domain.User{Email: c.Query("email")}
 
@@ -68,6 +59,16 @@ func (ctrl *UserController) Registration(c *gin.Context) {
 	GoodResponseWithData(c, "user registered", http.StatusCreated, gin.H{"name": user.Name, "email": user.Email})
 }
 
+// Reset Password endpoint
+// @Summary Reset Password
+// @Description reset user password. user can only reset their password after successfully validated the OTP.
+// @Description use 1052c225-9a44-4f61-a340-040ef44e8022 to reset the password using data from the seeder
+// @Tags Auth
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} handler.Response "OTP sent"
+// @Failure 500 {object} handler.Response "failed to send OTP"
+// @Router  /user/:id [put]
 func (ctrl *UserController) Update(c *gin.Context) {
 	id, err := uuid.Parse(c.Param("id"))
 	if err != nil {
