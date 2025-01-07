@@ -8,9 +8,9 @@ import (
 	"log"
 )
 
-// @title
+// @title Project Chat App
 // @version 1.0
-// @description
+// @description Homework CHAPTER 50 -55
 // @termsOfService http://example.com/terms/
 // @contact.name Paulus Otto Harman
 // @contact.url https://academy.lumoshive.com/contact-us
@@ -23,6 +23,7 @@ import (
 // @securityDefinitions.apikey Bearer
 // @in header
 // @name Authorization
+// @description <h5>Please type "Bearer", following with a space, and then the JWT token</h5>
 
 func main() {
 	ctx, err := infra.NewServiceContext()

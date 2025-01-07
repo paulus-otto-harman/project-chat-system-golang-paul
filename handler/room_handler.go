@@ -18,11 +18,23 @@ func NewRoomController(service service.RoomService, logger *zap.Logger) *RoomCon
 	return &RoomController{service: service, logger: logger}
 }
 
+// Create Chat Room endpoint
+// @Summary Create chat room
+// @Description create chat room (channel) for users
+// @Tags Chat
+// @Accept  json
+// @Produce  json
+// @Param Room body Room true " "
+// @Success 200 {object} handler.Response "room created successfully"
+// @Failure 401 {object} handler.Response "unauthorized"
+// @Failure 422 {object} handler.Response "invalid input"
+// @Failure 500 {object} handler.Response "failed to create chat room"
+// @Router  /rooms [post]
 func (ctrl *RoomController) Create(c *gin.Context) {
 	var room domain.Room
 	if err := c.ShouldBindJSON(&room); err != nil {
 		log.Println(err.Error())
-		BadResponse(c, "invalid input", http.StatusBadRequest)
+		BadResponse(c, "invalid input", http.StatusUnprocessableEntity)
 		return
 	}
 
@@ -32,4 +44,13 @@ func (ctrl *RoomController) Create(c *gin.Context) {
 		return
 	}
 	GoodResponseWithData(c, "room created successfully", http.StatusOK, room)
+}
+
+type Room struct {
+	Name  string `json:"name" example:"Alumni Lumoshive Academy"`
+	Users []User `json:"users"`
+}
+
+type User struct {
+	ID uint `json:"id" example:"6"`
 }
