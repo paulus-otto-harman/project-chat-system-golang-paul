@@ -9,6 +9,7 @@ import (
 
 type ChatService interface {
 	SaveMessage(message domain.Message) error
+	DeleteMessage(id string) error
 }
 
 type chatService struct {
@@ -22,6 +23,10 @@ func NewChatService(repo repository.ChatRepository, log *zap.Logger) ChatService
 
 func (s *chatService) SaveMessage(message domain.Message) error {
 	log.Println("Saving message", zap.Any("message", message))
-	s.repo.Save(message)
-	return nil
+	return s.repo.Save(message)
+}
+
+func (s *chatService) DeleteMessage(id string) error {
+	log.Println("Delete message", zap.String("message ID", id))
+	return s.repo.Delete(id)
 }

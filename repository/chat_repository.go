@@ -17,6 +17,10 @@ func NewChatRepository(db *gorm.DB, cacher database.Cacher, log *zap.Logger) *Ch
 	return &ChatRepository{db: db, cacher: cacher, log: log}
 }
 
-func (r ChatRepository) Save(message domain.Message) {
-	r.db.Create(&message)
+func (r ChatRepository) Save(message domain.Message) error {
+	return r.db.Create(&message).Error
+}
+
+func (r ChatRepository) Delete(messageId string) error {
+	return r.db.Delete(&domain.Message{}, messageId).Error
 }

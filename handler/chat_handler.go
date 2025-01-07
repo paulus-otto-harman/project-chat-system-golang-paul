@@ -71,5 +71,9 @@ func (ctrl *ChatController) All(c *gin.Context) {
 }
 
 func (ctrl *ChatController) Delete(c *gin.Context) {
-
+	id := c.Param("id")
+	if err := ctrl.service.DeleteMessage(id); err != nil {
+		BadResponse(c, "failed to delete message id "+id, http.StatusInternalServerError)
+	}
+	GoodResponseWithData(c, "message successfully deleted", http.StatusOK, nil)
 }
