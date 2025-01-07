@@ -3,7 +3,10 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+	"homework/domain"
 	"homework/service"
+	"log"
+	"net/http"
 )
 
 type RoomController struct {
@@ -16,5 +19,11 @@ func NewRoomController(service service.RoomService, logger *zap.Logger) *RoomCon
 }
 
 func (ctrl *RoomController) Create(c *gin.Context) {
-
+	var room domain.Room
+	if err := c.ShouldBindJSON(&room); err != nil {
+		log.Println(err.Error())
+		BadResponse(c, "invalid input", http.StatusBadRequest)
+		return
+	}
+	GoodResponseWithData(c, "room created successfully", http.StatusOK, gin.H{})
 }
