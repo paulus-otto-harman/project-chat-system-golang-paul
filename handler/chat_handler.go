@@ -67,7 +67,12 @@ func (ctrl *ChatController) Websocket(c *gin.Context) {
 }
 
 func (ctrl *ChatController) All(c *gin.Context) {
-
+	id := c.Param("id")
+	messages, err := ctrl.service.GetMessages(id)
+	if err != nil {
+		BadResponse(c, "failed to get all messages", http.StatusInternalServerError)
+	}
+	GoodResponseWithData(c, "message successfully retrieved", http.StatusOK, messages)
 }
 
 func (ctrl *ChatController) Delete(c *gin.Context) {

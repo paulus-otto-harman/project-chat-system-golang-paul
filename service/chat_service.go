@@ -10,6 +10,7 @@ import (
 type ChatService interface {
 	SaveMessage(message domain.Message) error
 	DeleteMessage(id string) error
+	GetMessages(roomId string) ([]domain.Message, error)
 }
 
 type chatService struct {
@@ -29,4 +30,8 @@ func (s *chatService) SaveMessage(message domain.Message) error {
 func (s *chatService) DeleteMessage(id string) error {
 	log.Println("Delete message", zap.String("message ID", id))
 	return s.repo.Delete(id)
+}
+
+func (s *chatService) GetMessages(roomId string) ([]domain.Message, error) {
+	return s.repo.All(roomId)
 }

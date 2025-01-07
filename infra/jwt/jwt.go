@@ -69,6 +69,7 @@ func (j *JWT) AuthJWT() gin.HandlerFunc {
 		claims := &customClaims{}
 		tokenValue := c.GetHeader("Authorization")
 		if len(tokenValue) == 0 {
+			helper.BadResponse(c, "invalid authorization header", http.StatusUnauthorized)
 			c.Abort()
 			return
 		}

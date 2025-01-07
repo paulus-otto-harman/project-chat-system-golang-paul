@@ -24,3 +24,12 @@ func (r ChatRepository) Save(message domain.Message) error {
 func (r ChatRepository) Delete(messageId string) error {
 	return r.db.Delete(&domain.Message{}, messageId).Error
 }
+
+func (r ChatRepository) All(roomId string) ([]domain.Message, error) {
+	var messages []domain.Message
+	err := r.db.Where("room_id = ?", roomId).Find(&messages).Error
+	if err != nil {
+		return nil, err
+	}
+	return messages, nil
+}
