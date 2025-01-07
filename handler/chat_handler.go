@@ -66,6 +66,16 @@ func (ctrl *ChatController) Websocket(c *gin.Context) {
 	}
 }
 
+// Get Chat History endpoint
+// @Summary Get Chat History
+// @Description Get chat history by room ID.
+// @Tags Chat
+// @Accept  json
+// @Produce  json
+// @Param id path int true "room ID"
+// @Success 200 {object} handler.Response "message successfully retrieved"
+// @Failure 500 {object} handler.Response "failed to get all messages"
+// @Router  /rooms/:id/chats [get]
 func (ctrl *ChatController) All(c *gin.Context) {
 	id := c.Param("id")
 	messages, err := ctrl.service.GetMessages(id)
@@ -75,6 +85,16 @@ func (ctrl *ChatController) All(c *gin.Context) {
 	GoodResponseWithData(c, "message successfully retrieved", http.StatusOK, messages)
 }
 
+// Delete Chat endpoint
+// @Summary Delete Chat
+// @Description Delete chat by chat (message) ID
+// @Tags Chat
+// @Accept  json
+// @Produce  json
+// @Param id path int true "message ID"
+// @Success 200 {object} handler.Response "message successfully retrieved"
+// @Failure 500 {object} handler.Response "failed to get all messages"
+// @Router  /chats/:id [delete]
 func (ctrl *ChatController) Delete(c *gin.Context) {
 	id := c.Param("id")
 	if err := ctrl.service.DeleteMessage(id); err != nil {
